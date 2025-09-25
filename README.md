@@ -1,76 +1,79 @@
-Terminal 1 (server):
-npm run dev
+# 🎯 desafio - aula 01
 
-Terminal 2 (client):
-http POST localhost:3333/users
-http GET localhost:3333/users
+desafio da aula 01 do curso de nodejs da rocketseat
 
+<br>
 
-### Aula 1
+## Sobre o desafio
 
-- npm init -y
-Criou o package.json
+Nesse desafio você desenvolverá uma API para realizar o CRUD de suas *tasks* (tarefas).
 
-- criei uma pasta /src/server.js
+A API deve conter as seguintes funcionalidades:
 
-- node src/server.js
-comando pra rodar meu código js
+- Criação de uma task
+- Listagem de todas as tasks
+- Atualização de uma task pelo `id`
+- Remover uma task pelo `id`
+- Marcar pelo `id` uma task como completa
+- E o verdadeiro desafio: Importação de tasks em massa por um arquivo CSV
 
-- terminal: "http localhost:3333" pra testar (poderia ser no browser)
-adicionei o código de createServer 
+### Rotas e regras de negócio
 
-- node --watch src/server.js
-assim o node reinicia quando o código sofre alterações
+Antes das rotas, vamos entender qual a estrutura (propriedades) que uma task deve ter:
 
-- adicionando scripts no package.json
-adicionado o script "dev"
+- `id` - Identificador único de cada task
+- `title` - Título da task
+- `description` - Descrição detalhada da task
+- `completed_at` - Data de quando a task foi concluída. O valor inicial deve ser `null`
+- `created_at` - Data de quando a task foi criada.
+- `updated_at` - Deve ser sempre alterado para a data de quando a task foi atualizada.
 
+### Rotas:
+<details>
+	<summary>POST - /tasks</summary>
+	<p>
+    	Deve ser possível criar uma task no banco de dados, enviando os campos `title` e `description` por meio do `body` da requisição.
+    	Ao criar uma task, os campos: `id`, `created_at`, `updated_at` e `completed_at` devem ser preenchidos automaticamente, conforme a orientação das propriedades acima.
+	</p>
+</details>    
 
-### Aula 2 (Estrutura)
+<details>
+	<summary>GET - /tasks</summary>
+	<p>
+    	Deve ser possível listar todas as tasks salvas no banco de dados.
+    	Também deve ser possível realizar uma busca, filtrando as tasks pelo `title` e `description`
+	</p>
+</details>    
 
-- http POST localhost:3333/users
-o código vai pegar que foi um POST e também que a rota foi /users -> aparecerá no terminal que está rodando o server
+<details>
+	<summary>PUT - /tasks/:id</summary>
+	<p>
+    	Deve ser possível atualizar uma task pelo `id`.
+    	No `body` da requisição, deve receber somente o `title` e/ou `description` para serem atualizados.
+		Se for enviado somente o `title`, significa que o `description` não pode ser atualizado e vice-versa.
+		Antes de realizar a atualização, deve ser feito uma validação se o `id` pertence a uma task salva no banco de dados.
+	</p>
+</details>    
 
+<details>
+	<summary>DELETE - /tasks/:id</summary>
+	<p>
+    	Deve ser possível remover uma task pelo `id`.
+    	Antes de realizar a remoção, deve ser feito uma validação se o `id` pertence a uma task salva no banco de dados.
+	</p>
+</details>    
 
-### Aula 3 (Streams)
+<details>
+	<summary>PATCH - /tasks/:id/complete</summary>
+	<p>
+    	Deve ser possível marcar a task como completa ou não. Isso significa que se a task estiver concluída, deve voltar ao seu estado “normal”.
+    	Antes da alteração, deve ser feito uma validação se o `id` pertence a uma task salva no banco de dados.
+	</p>
+</details>
 
-Parte 3.1 3.2 e 3.3 - streams/fundamentals.js
-Diversos tipos de streams. Comentários explicativos no código
+### Indo além
 
-Parte 3.4 - stream-http-server.js e fake-upload-to-http-stream.js
-O fake upload simula um upload de arquivos pro nosso server
+Algumas sugestões do que pode ser implementado:
 
-Parte 3.6 - server.js
-Enviando um JSON do Insomnia para o server.js
-
-Parte 3.7 - Buffer - buffer.js
-O que é o Buffer? É uma representação de um espaço na memória do computador, usado especialmente para transitar dados de uma maneira muito rápida. Os dados armazenados no Buffer são feitos para logo serem tratados (enviados para outro lugar) e depois logo removidos. São maneiras de salvar e ler da memória de forma muito performática. Performática porque o Node usa esse modelo de Buffer na leitura/escrita de streams porque é mais performático ler parcialmente uma informação de forma binária (que é como o Buffer guarda na memória) do que necessariamente um texto, uma string, algo que tenha muito mais informações (acentos, tils, coisas que tem encoding). O Buffer existe dentro do Node (foi uma API criada dentro do Node) justamente pela incapacidade do JS de trabalhar com dados binários de maneira eficiente (por muito tempo ele não teve uma forma nativa de trabalhar com dados binários). Resumidamente, o Buffer é uma maneira mais eficiente/performatica pra ler e escrever da memória conversando de uma maneira binária (mais baixo nível).
-
-Parte 3.8 - Middlewares
-Middleware nada mais é que um interceptador. Um interceptador nada mais é (no Node) que uma função que intercepta nossa requisição e sempre recebem o req e o res
-
-### Aula 4 (Banco de dados JSON)
-
-Parte 4.1 - Criando um banco de dados JSON
-Arquivos server.js e database.js
-
-Parte 4.2 - Persistindo o banco de dados
-Arquivo database.js
-
-Parte 4.3 - Criando ID único e universal para os usuários
-
-
-### Aula 5 (Rotas da aplicação)
-
-Parte 5.1 - Criando o arquivo routes.js
-
-Parte 5.2 - Parâmetros
-- Query parameters: ?userId=1&name=Angui (URL Stateful - ex: filtros, paginação, ordenação, busca, etc)
-- Route parameters: DELETE /users/1 (Identificação do recurso - ex: editar um usuário específico, deletar um usuário específico, etc)
-- Request body: {"name": "Angui", "email": "angui@asd.com"} (usado para criar ou editar um recurso - URL Stateless - ex: formulários, upload de arquivos, etc)
-
-Parte 5.3, 5.4 - Regex dos parâmetros
-Arquivo src/utils/build-route-path.js e routes.js
-
-Parte 5.5, 5.6 - Deletando um usuário pelo id, atualizando um usuário pelo id
-Arquivo routes.js, server.js, database.js
+- Validar se as propriedades `title` e `description` das rotas `POST` e `PUT` estão presentes no `body` da requisição.
+- Nas rotas que recebem o `/:id`, além de validar se o `id` existe no banco de dados, retornar a requisição com uma mensagem informando que o registro não existe.

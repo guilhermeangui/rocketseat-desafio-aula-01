@@ -36,8 +36,6 @@ export const routes = [
 		handler: (req, res) => {
 			const csvData = req.csvData
 
-			console.log(csvData)
-
 			if (!csvData || !Array.isArray(csvData)) {
 				return res.writeHead(400).end(JSON.stringify({ 
 					message: 'CSV inválido ou vazio' 

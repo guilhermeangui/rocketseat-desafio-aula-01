@@ -2,6 +2,9 @@
 
 desafio da aula 01 do curso de nodejs da rocketseat
 
+<pre>para iniciar o projeto: npm run dev</pre>
+<pre>para testar no insomnia/postman: localhost:3333</pre>
+
 <br>
 
 ## Sobre o desafio

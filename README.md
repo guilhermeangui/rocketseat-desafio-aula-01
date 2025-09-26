@@ -6,8 +6,8 @@ desafio da aula 01 do curso de nodejs da rocketseat
 <pre><b>🚏 para testar as rotas no insomnia/postman:</b> http://localhost:3333</pre>
 <pre><b>📊 para testar a importação de tasks em massa com um arquivo .csv no insomnia/postman: </b> 
 	- utilizar a rota http://localhost:3333/tasks/csv;
-	- adicionar o arquivo .csv no body da requisição (como exemplo, utilizar o tasks.csv aqui do repo);
-	- selecionar o Content-type: text/csv nos headers.
+	- adicionar o arquivo .csv no body da requisição (como exemplo, utilizar o tasks.csv);
+	- selecionar o "Content-type: text/csv" nos headers da requisição.
 </pre>
 
 <br>
